@@ -2,6 +2,7 @@ package entity
 
 import (
 	"database/sql/driver"
+	"fmt"
 	"strings"
 	"time"
 
@@ -27,28 +28,38 @@ type CustomTime struct {
 	time.Time
 }
 
-// UnmarshalJSON: Converte string do JSON para CustomTime
 func (ct *CustomTime) UnmarshalJSON(b []byte) error {
 	str := strings.Trim(string(b), "\"")
 	if str == "" {
 		return nil
 	}
 
-	// Primeiro tenta o formato vindo do JSON
 	t, err := time.Parse("2006-01-02T15:04:05.9999999", str)
 	if err != nil {
-		// Tenta um formato alternativo com timezone
 		t, err = time.Parse("2006-01-02T15:04:05.9999999Z07:00", str)
 		if err != nil {
 			return err
 		}
 	}
 
-	ct.Time = t.UTC().Truncate(time.Microsecond) // Garante que está em UTC e com precisão correta
+	ct.Time = t.UTC().Truncate(time.Microsecond)
 	return nil
 }
 
-// Value: Converte CustomTime para um formato aceito pelo PostgreSQL
 func (ct CustomTime) Value() (driver.Value, error) {
 	return ct.UTC().Format("2006-01-02 15:04:05.999999"), nil
+}
+
+func (ct *CustomTime) Scan(value interface{}) error {
+	if value == nil {
+		*ct = CustomTime{}
+		return nil
+	}
+	t, ok := value.(time.Time)
+	if !ok {
+		return fmt.Errorf("failed to scan time: %v", value)
+	}
+
+	ct.Time = t
+	return nil
 }

@@ -24,7 +24,7 @@ func (r *TransactionRepository) CreateTransaction(transaction entity.Transaction
 
 func (r *TransactionRepository) GetTransactionByID(transactionId int) (entity.Transaction, error) {
 	var transaction entity.Transaction
-	if err := r.db.Where("account_id = ?", transactionId).First(&transaction).Error; err != nil {
+	if err := r.db.Where("transaction_id = ?", transactionId).First(&transaction).Error; err != nil {
 		return entity.Transaction{}, err
 	}
 	return transaction, nil
