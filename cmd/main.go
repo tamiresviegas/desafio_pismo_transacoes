@@ -10,13 +10,19 @@ import (
 	"github.com/tamiresviegas/desafio_pismo_transacoes/internal/core/service"
 )
 
+// @contact.name   API Support
+// @contact.url    http://www.swagger.io/support
+// @contact.email  support@swagger.io
+
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
 func main() {
 
 	db, err := config.ConnectBD()
 	if err != nil {
 		log.Fatal("Erro ao conectar ao banco de dados:", err)
 	}
-	
 
 	accountRepo := repository.NewAccountRepository(db.DB)
 	accountService := service.NewAccountService(accountRepo)

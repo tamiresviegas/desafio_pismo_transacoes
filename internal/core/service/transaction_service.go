@@ -24,9 +24,12 @@ func (s *TransactionService) CreateTransaction(transactiontInput entity.Transact
 		return entity.Transaction{}, fmt.Errorf("invalid account_id: %d", transactiontInput.AccountId)
 	}
 
-	_, err = s.opRepo.GetOperationTypesByID(transactiontInput.OperationTypeId)
+	opType, err := s.opRepo.GetOperationTypesByID(transactiontInput.OperationTypeId)
 	if err != nil {
 		return entity.Transaction{}, fmt.Errorf("invalid operation_type: %d", transactiontInput.AccountId)
+	}
+	if opType.Description0 == "Credit Voucher" && transactiontInput.Amount < 0 {
+		return entity.Transaction{}, fmt.Errorf("amount must be positive for Credit Voucher")
 	}
 
 	transaction := entity.Transaction{

@@ -9,7 +9,7 @@ import (
 )
 
 type Transaction struct {
-	TransactionId   int            `json:"transaction_id" gorm:"primaryKey"`
+	TransactionId   int            `json:"transaction_id" gorm:"primaryKey;autoIncrement"`
 	AccountId       int            `json:"account_id" gorm:"index"`
 	OperationTypeId int            `json:"operation_type_id" gorm:"index"`
 	Amount          float64        `json:"amount"`

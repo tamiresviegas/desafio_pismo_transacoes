@@ -17,6 +17,18 @@ func NewAccountHandler(service *service.AccountService) *AccountHandler {
 	return &AccountHandler{service: service}
 }
 
+// CreateAccount godoc
+// @Summary      Create an account
+// @Description  create account
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Param		 account body  entity.Account true "Entity Account"
+// @Success      200  {object}  entity.Account
+// @Failure      400  {object}  httputil.HTTPError
+// @Failure      404  {object}  httputil.HTTPError
+// @Failure      500  {object}  httputil.HTTPError
+// @Router       /accounts [post]
 func (h *AccountHandler) CreateAccount(c *gin.Context) {
 
 	var account entity.Account

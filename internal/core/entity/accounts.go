@@ -5,7 +5,7 @@ import (
 )
 
 type Account struct {
-	AccountId      int    `json:"account_id" gorm:"primaryKey"`
+	AccountId      int    `json:"account_id" gorm:"primaryKey;autoIncrement"`
 	DocumentNumber string `json:"document_number" validate:"nonzero, regexp=^[0-9]*$"`
 }
 
