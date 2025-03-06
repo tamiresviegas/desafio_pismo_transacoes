@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/swaggo/swag/example/celler/httputil"
 	"github.com/tamiresviegas/desafio_pismo_transacoes/internal/core/entity"
 	"github.com/tamiresviegas/desafio_pismo_transacoes/internal/core/service"
 )
@@ -17,17 +18,25 @@ func NewAccountHandler(service *service.AccountService) *AccountHandler {
 	return &AccountHandler{service: service}
 }
 
+// Ping godoc
+// @Summary      Health check
+// @Description  Retorna um status 200 se a API estiver online
+// @Tags         health
+// @Success      200  {string}  string  "pong"
+// @Router       /ping [get]
+func Ping(c *gin.Context) {
+	c.String(http.StatusOK, "pong")
+}
+
 // CreateAccount godoc
-// @Summary      Create an account
-// @Description  create account
+// @Summary      Cria uma conta
+// @Description  Cria uma nova conta com um número de documento único
 // @Tags         accounts
 // @Accept       json
 // @Produce      json
-// @Param		 account body  entity.Account true "Entity Account"
+// @Param        account  body  entity.Account  true  "Informações da Conta"
 // @Success      200  {object}  entity.Account
 // @Failure      400  {object}  httputil.HTTPError
-// @Failure      404  {object}  httputil.HTTPError
-// @Failure      500  {object}  httputil.HTTPError
 // @Router       /accounts [post]
 func (h *AccountHandler) CreateAccount(c *gin.Context) {
 

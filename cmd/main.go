@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	_ "github.com/tamiresviegas/desafio_pismo_transacoes/cmd/docs"
 	"github.com/tamiresviegas/desafio_pismo_transacoes/config"
 	"github.com/tamiresviegas/desafio_pismo_transacoes/internal/adapters/handler"
 	"github.com/tamiresviegas/desafio_pismo_transacoes/internal/adapters/http"

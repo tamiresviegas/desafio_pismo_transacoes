@@ -82,7 +82,6 @@ func TestGetAllAccountHandler(t *testing.T) {
 	accountService := service.NewAccountService(repo)
 	handler := handler.NewAccountHandler(accountService)
 
-	// Criar contas para teste
 	accounts := []entity.Account{
 		{DocumentNumber: "12345678900"},
 		{DocumentNumber: "98765432100"},
@@ -111,11 +110,9 @@ func TestUpdateAccountHandler(t *testing.T) {
 	accountService := service.NewAccountService(repo)
 	handler := handler.NewAccountHandler(accountService)
 
-	// Criar uma conta para teste
 	account := entity.Account{DocumentNumber: "12345678900"}
 	db.DB.Create(&account)
 
-	// Modificar a conta
 	updatedAccount := entity.Account{AccountId: account.AccountId, DocumentNumber: "11122233344"}
 	body, _ := json.Marshal(updatedAccount)
 
@@ -144,7 +141,6 @@ func TestDeleteAccountHandler(t *testing.T) {
 	accountService := service.NewAccountService(repo)
 	handler := handler.NewAccountHandler(accountService)
 
-	// Criar uma conta para deletar
 	account := entity.Account{DocumentNumber: "12345678900"}
 	db.DB.Create(&account)
 
