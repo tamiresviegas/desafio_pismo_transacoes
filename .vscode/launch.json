@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Program",
+        "type": "go",
+        "request": "launch",
+        "mode": "debug",
+        "program": "${workspaceFolder}/cmd/main.go",  // Altere para o arquivo principal do seu projeto
+        "env": {},
+        "args": [],
+        "showLog": true
+      },
+      {
+        "name": "Attach to Process",
+        "type": "go",
+        "request": "attach",
+        "mode": "debug",
+        "processId": "${command:pickProcess}",
+        "env": {},
+        "args": [],
+        "showLog": true
+      }
+    ]
+  }
